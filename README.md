@@ -37,3 +37,16 @@ Settings → Pages → Build and deployment → Deploy from a branch → `main` 
 ログイン、解析、広告、外部通信、クラウド同期はありません。学習状態はこの配信元のブラウザlocalStorageだけに保存されます。プライベートブラウズやブラウザデータの削除で失われる可能性があります。定期的にJSONを書き出してください。進行中のセッション自体はメモリ内にあり、ページ再読み込みで終了します。採点済みの回答は随時保存されますが、模擬テストは終了時まで保存されません。
 
 Memoraxとは無関係の独立したアプリです。簡易間隔反復は独自の実装であり、特定アプリのアルゴリズムを再現するものではありません。Service Workerは搭載しておらず、オフライン起動は保証しません。
+
+## 動作確認
+
+アプリ本体にnpmパッケージは不要です。開発用のブラウザテストだけPlaywrightを使います。
+
+```sh
+npm install
+npx playwright install chromium
+# 別ターミナルで python3 -m http.server 8000 を起動
+npm test
+```
+
+既存のChromiumを使う場合は `CHROMIUM_PATH=/path/to/chromium npm test`。公開先の確認には `BASE_URL=https://true-nosuke.github.io/koukyou-cards/ npm test` を使えます。95問の件数・重複、スワイプ、2秒判定、空白を含む完全一致、模擬テストの時間切れ、検索、メモ、保存、バックアップの読み書きと不正形式の拒否、リセットをテストします。テストでは独立した一時ブラウザを使い、利用者の学習データを変更しません。スクリーンショットは一時フォルダ（`TEST_OUTPUT` で変更可）に保存します。

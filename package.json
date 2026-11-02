@@ -4,7 +4,7 @@
   "private": true,
   "description": "公共の一問一答95問を学ぶ静的Webアプリ",
   "scripts": {
-    "test": "node tests/smoke.cjs",
+    "test": "node tests/data.cjs && node tests/smoke.cjs && node tests/multisubject.cjs",
     "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {

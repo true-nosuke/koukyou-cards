@@ -9,6 +9,7 @@ const output=process.env.TEST_OUTPUT||'/tmp/multisubject-qa'; fs.mkdirSync(outpu
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  // Temporary fixture, injected only in this test: never added to the published dataset.
  await page.route('**/data.js',async route=>{const response=await route.fetch(); const js=await response.text(); const fixture=Array.from({length:100},(_,i)=>({id:96+i,subject:'テスト教科',category:i<50?'日本の思想':'別テーマ',question:`仮問題${i+1}`,answer:`仮解答${i+1}`}));await route.fulfill({response,body:js+'\nwindow.CARDS=window.CARDS.filter(c=>c.id<=95);window.CARDS.push(...'+JSON.stringify(fixture)+');'});});
+ await page.route('**/health.js',route=>route.fulfill({status:200,contentType:'application/javascript',body:''}));
  const backup={version:1,cards:{'1':{reps:2,lapses:0,due:1800000000000,last:1700000000000,bookmark:true,slow:false,lastMs:0,note:'旧バージョンの記録'}},days:{'2026-01-01':{total:2,correct:2}},history:[],examDate:''};
  await page.addInitScript(state=>localStorage.setItem('koukyou-note:v1',JSON.stringify(state)),backup);
  await page.goto(process.env.BASE_URL||'http://localhost:8000');

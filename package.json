@@ -2,9 +2,9 @@
   "name": "koukyou-note",
   "version": "1.0.0",
   "private": true,
-  "description": "公共の一問一答95問を学ぶ静的Webアプリ",
+  "description": "複数教科の一問一答を学ぶ静的Webアプリ",
   "scripts": {
-    "test": "node tests/data.cjs && node tests/smoke.cjs && node tests/multisubject.cjs",
+    "test": "node tests/data.cjs && node tests/smoke.cjs && node tests/multisubject.cjs && node tests/health.cjs",
     "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@
 const KEY='koukyou-note:v1', DAY=86400000;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const CARDS=window.CARDS;
+const CARDS=window.CARDS.map(c=>({...c,subject:c.subject||'公共'}));
 const subjects=[...new Set(CARDS.map(c=>c.subject))];
 const categoriesFor=subject=>[...new Set(CARDS.filter(c=>!subject||c.subject===subject).map(c=>c.category))];
 let storageOK=true,state=load(),session=null,route='',toastTimer;
